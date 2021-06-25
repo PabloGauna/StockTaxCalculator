@@ -3,10 +3,10 @@
 /Users/pablogauna/Projects/StockTaxCalculator/StockTaxCalculator/bin/Debug/netcoreapp3.1/StockTaxCalculator.runtimeconfig.dev.json
 /Users/pablogauna/Projects/StockTaxCalculator/StockTaxCalculator/bin/Debug/netcoreapp3.1/StockTaxCalculator.dll
 /Users/pablogauna/Projects/StockTaxCalculator/StockTaxCalculator/bin/Debug/netcoreapp3.1/StockTaxCalculator.pdb
-/Users/pablogauna/Projects/StockTaxCalculator/StockTaxCalculator/obj/Debug/netcoreapp3.1/StockTaxCalculator.csprojAssemblyReference.cache
 /Users/pablogauna/Projects/StockTaxCalculator/StockTaxCalculator/obj/Debug/netcoreapp3.1/StockTaxCalculator.AssemblyInfoInputs.cache
 /Users/pablogauna/Projects/StockTaxCalculator/StockTaxCalculator/obj/Debug/netcoreapp3.1/StockTaxCalculator.AssemblyInfo.cs
 /Users/pablogauna/Projects/StockTaxCalculator/StockTaxCalculator/obj/Debug/netcoreapp3.1/StockTaxCalculator.csproj.CoreCompileInputs.cache
 /Users/pablogauna/Projects/StockTaxCalculator/StockTaxCalculator/obj/Debug/netcoreapp3.1/StockTaxCalculator.dll
 /Users/pablogauna/Projects/StockTaxCalculator/StockTaxCalculator/obj/Debug/netcoreapp3.1/StockTaxCalculator.pdb
 /Users/pablogauna/Projects/StockTaxCalculator/StockTaxCalculator/obj/Debug/netcoreapp3.1/StockTaxCalculator.genruntimeconfig.cache
+/Users/pablogauna/Projects/StockTaxCalculator/StockTaxCalculator/obj/Debug/netcoreapp3.1/StockTaxCalculator.csproj.AssemblyReference.cache

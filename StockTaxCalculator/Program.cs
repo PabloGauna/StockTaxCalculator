@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace StockTaxCalculator
 {
     class SingleStock {
-        public SingleStock(Double priceBought, Double priceSold)
+        public SingleStock(Double priceBought, Double priceSold, String symbol)
         {
             priceBuy = priceBought;
             priceSell = priceSold;
+            stockSymbol = symbol;
         }
 
         public Double priceBuy { get; set; }
@@ -17,6 +19,8 @@ namespace StockTaxCalculator
         public DateTime dateBuy { get; set; }
 
         public DateTime dateSell { get; set; }
+
+        public String stockSymbol { get; set; }
     }
 
     class Program
@@ -44,17 +48,31 @@ namespace StockTaxCalculator
             return totalGain * 0.15;
         }
 
-        static void GenerateReport(List<SingleStock> soldStocks)
+        static void GenerateReport(List<SingleStock> soldStocks, String stocksSymbol)
         {
-            Console.WriteLine("Capital Gains Report: \n");
+            Console.WriteLine("Capital Gains Report (" + stocksSymbol + "):\n");
 
             Double totalGain = 0;
 
-            foreach (SingleStock s in soldStocks)
+            var groupedSoldStocks = soldStocks.GroupBy(s => s.priceBuy + " - " + s.priceSell);
+
+            foreach(var group in groupedSoldStocks)
             {
-                Double stockGain = s.priceSell - s.priceBuy;
-                Console.WriteLine("DateBuy: " + s.dateBuy + " , DateSell: " + s.dateSell + " , BuyPrice: " + s.priceBuy + " , SellPrice: " + s.priceSell + " , Gain: " + stockGain);
-                totalGain += stockGain;
+                Double groupGain = 0;
+
+                Console.WriteLine(group.Key + " (" + group.Count() + " Stocks)");
+                foreach (SingleStock s in group.AsEnumerable())
+                {
+                    Double stockGain = s.priceSell - s.priceBuy;
+
+                    if (stockGain > 0)
+                    {
+                        groupGain += stockGain;
+                        totalGain += stockGain;
+                    }
+                }
+                Console.WriteLine("Partial Gain: " + groupGain);
+                Console.WriteLine(String.Empty);
             }
 
             Console.WriteLine("Total Gain: " + totalGain);
@@ -63,39 +81,44 @@ namespace StockTaxCalculator
 
         static void Main(string[] args)
         {
-            var data = readCsv("operations.csv");
+            var stocksSymbol = "FB";
+            var data = readCsv("OperacionesFinalizadas.csv");
 
             Queue<SingleStock> stocks = new Queue<SingleStock>();
             List<SingleStock> soldStocks = new List<SingleStock>();
 
-            foreach(Array operation in data)
+            foreach (Array operation in data)
             {
                 var operationType = operation.GetValue(0).ToString();
-                var qtty = Int32.Parse(operation.GetValue(1).ToString());
-                var price = Double.Parse(operation.GetValue(2).ToString());
+                var symbol = operation.GetValue(3).ToString();
+                var qtty = Double.Parse(operation.GetValue(4).ToString()) / 10000;
+                var price = Double.Parse(operation.GetValue(6).ToString()) / 100;
 
-                if (operationType == "Buy")
+                if (symbol == stocksSymbol)
                 {
-                    for (int index = 0; index < qtty; index++)
+                    if (operationType == "Compra")
                     {
-                        stocks.Enqueue(new SingleStock(price, 0));
+                        for (int index = 0; index < qtty; index++)
+                        {
+                            stocks.Enqueue(new SingleStock(price, 0, symbol));
+                        }
                     }
-                }
-                else if (operationType == "Sell")
-                {
-                    for (int index = 0; index < qtty; index++)
+                    else if (operationType == "Venta")
                     {
-                        var stock = stocks.Dequeue();
-                        stock.priceSell = price;
+                        for (int index = 0; index < qtty; index++)
+                        {
+                            var stock = stocks.Dequeue();
+                            stock.priceSell = price;
 
-                        soldStocks.Add(stock);
+                            soldStocks.Add(stock);
+                        }
                     }
                 }
             }
 
-            GenerateReport(soldStocks);
+            GenerateReport(soldStocks, stocksSymbol);
 
-            Console.WriteLine("Number of transactions: " + data.Count);
+            Console.WriteLine("CSV Number of transactions: " + data.Count);
         }
     }
 }

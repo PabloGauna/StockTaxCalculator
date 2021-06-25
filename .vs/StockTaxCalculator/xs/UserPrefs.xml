@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{87B23DCE-F5C0-43AA-BD99-3013E01545A6}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="StockTaxCalculator/Program.cs">
     <Files>
-      <File FileName="StockTaxCalculator/Program.cs" Line="21" Column="1" />
+      <File FileName="StockTaxCalculator/Program.cs" Line="39" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
