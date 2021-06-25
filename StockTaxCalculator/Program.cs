@@ -4,25 +4,6 @@ using System.Linq;
 
 namespace StockTaxCalculator
 {
-    class SingleStock {
-        public SingleStock(Double priceBought, Double priceSold, String symbol)
-        {
-            priceBuy = priceBought;
-            priceSell = priceSold;
-            stockSymbol = symbol;
-        }
-
-        public Double priceBuy { get; set; }
-
-        public Double priceSell { get; set; }
-
-        public DateTime dateBuy { get; set; }
-
-        public DateTime dateSell { get; set; }
-
-        public String stockSymbol { get; set; }
-    }
-
     class Program
     {
         static List<Array> readCsv(string filePath)
@@ -54,7 +35,7 @@ namespace StockTaxCalculator
 
             Double totalGain = 0;
 
-            var groupedSoldStocks = soldStocks.GroupBy(s => s.priceBuy + " - " + s.priceSell);
+            var groupedSoldStocks = soldStocks.GroupBy(s => s.PriceBuy + " - " + s.PriceSell);
 
             foreach(var group in groupedSoldStocks)
             {
@@ -63,7 +44,7 @@ namespace StockTaxCalculator
                 Console.WriteLine(group.Key + " (" + group.Count() + " Stocks)");
                 foreach (SingleStock s in group.AsEnumerable())
                 {
-                    Double stockGain = s.priceSell - s.priceBuy;
+                    Double stockGain = s.PriceSell - s.PriceBuy;
 
                     if (stockGain > 0)
                     {
@@ -108,7 +89,7 @@ namespace StockTaxCalculator
                         for (int index = 0; index < qtty; index++)
                         {
                             var stock = stocks.Dequeue();
-                            stock.priceSell = price;
+                            stock.PriceSell = price;
 
                             soldStocks.Add(stock);
                         }
